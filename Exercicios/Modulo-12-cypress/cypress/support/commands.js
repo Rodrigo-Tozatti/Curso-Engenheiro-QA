@@ -27,25 +27,17 @@
 
 Cypress.Commands.add('login', (usuario, senha) => {
     cy.get('.topbar-inner > :nth-child(1) > .list-inline > :nth-child(2) > a').click()
-    cy.get('#username').type(usuario, {log: false})
-    cy.get('#password').type(senha, {log: false})
+    cy.get('#username').type(usuario, { log: false })
+    cy.get('#password').type(senha, { log: false })
     cy.get('.woocommerce-form > .button').click()
 })
 
-Cypress.Commands.add('selProduto', (produto, tamanho, cor, quantidade) => {
+Cypress.Commands.add('selProduto', (pagina, produto, tamanho, cor, quantidade) => {
+    cy.get(':nth-child(' + pagina + ') > .page-numbers').click()
     cy.get('.product-block').contains(produto).click()
     cy.get('.button-variable-item-' + tamanho).click()
     cy.get('.button-variable-item-' + cor).click()
     cy.get('.input-text').clear().type(quantidade)
     cy.get('.single_add_to_cart_button').click()
-    cy.get('.dropdown-toggle > .text-skin > .icon-basket').click()
-    cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .view-cart').click()
+    cy.get('#primary-menu > .menu-item-629 > a').click()
 })
-
-Cypress.Commands.add('checkout', () => {
-    cy.get('.dropdown-toggle > .text-skin > .icon-basket').click()
-    cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .view-cart').click()
-    cy.get('.checkout-button').click()  
-})
-
-

@@ -18,61 +18,17 @@ describe('TESTE E2E EBACSHOP - COMPRA DE PRODUTOS ', () => {
     cy.get('#primary-menu > .menu-item-629 > a').click()
   });
 
-  it('Deve selecionar produto 01/04 e adicionar ao carrinho', () => {
-    var produto = 'Abominable Hoodie'
-    var tamanho = 'M'
-    var cor = 'Blue'
-    var quantidade = '4'
+  it.only('Deve fazer uma compra de 04 produtos', () => {
 
-    cy.get(':nth-child(1) > .page-numbers').click()
+    cy.selProduto('1', 'Abominable Hoodie', 'M', 'Blue', '1');
+    cy.selProduto('1', 'Ajax Full-Zip Sweatshirt', 'XL', 'Blue', '1')
+    cy.selProduto('1', 'Arcadio Gym Short', '33', 'Red', '1')
+    cy.selProduto('2', 'Autumn Pullie', 'M', 'Green', '1')
 
-    cy.selProduto(produto, tamanho, cor, quantidade)
-    cy.get('.product-name > a').should('contain', produto)
-  });
+    cy.get('.dropdown-toggle > .text-skin > .icon-basket').click()
+    cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .view-cart').click()
+    cy.get('.checkout-button').click()
 
-  it('Deve selecionar produto 02/04 e adicionar ao carrinho', () => {
-    var produto = 'Ajax Full-Zip Sweatshirt'
-    var tamanho = 'XL'
-    var cor = 'Blue'
-    var quantidade = '2'
-
-    cy.get(':nth-child(1) > .page-numbers').click()
-
-    cy.selProduto(produto, tamanho, cor, quantidade)
-    cy.get('.product-name > a').should('contain', produto)
-  });
-
-  it('Deve selecionar produto 03/04 e adicionar ao carrinho', () => {
-    var produto = 'Arcadio Gym Short'
-    var tamanho = '33'
-    var cor = 'Red'
-    var quantidade = '1'
-
-    cy.get(':nth-child(1) > .page-numbers').click()
-
-    cy.selProduto(produto, tamanho, cor, quantidade)
-    cy.get('.product-name > a').should('contain', produto)
-  });
-
-  it('Deve selecionar produto 04/04 e adicionar ao carrinho', () => {
-    var produto = 'Autumn Pullie'
-    var tamanho = 'M'
-    var cor = 'Green'
-    var quantidade = '2'
-
-    cy.get(':nth-child(2) > .page-numbers').click()
-
-    cy.selProduto(produto, tamanho, cor, quantidade)
-    cy.get('.product-name > a').should('contain', produto)
-  });
-
-
-  it('Deve conferir produto e ir para checkout', () => {
-    cy.checkout()
-    cy.get('.page-title').should('contain', 'Checkout')
-  });
-
-  it('Deve preencher o chekout e finalizar a compra', () => {
     dadosCheckout.preencherCheckout(
       checkout[1].nome,
       checkout[1].sobrenome,
@@ -86,8 +42,8 @@ describe('TESTE E2E EBACSHOP - COMPRA DE PRODUTOS ', () => {
       checkout[1].telefone,
       checkout[1].email,
     )
-    cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
+    
+    cy.get('.page-title').should('contain', 'Pedido recebido')
   });
-
 })
 
