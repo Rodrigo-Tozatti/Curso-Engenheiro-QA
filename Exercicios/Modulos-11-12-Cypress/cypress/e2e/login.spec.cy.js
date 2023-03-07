@@ -9,7 +9,7 @@ describe('Funcionalidade Login', () => {
   it('Deve fazer login com sucesso', () => {
     cy.login(dados.usuario_01, dados.senha_01)
 
-    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, aluno_ebac')
+    cy.get('.page-title').should('contain', 'Minha conta')
   });
 
   it('Usuário inválido - deve exibir mensagem de erro', () => {
