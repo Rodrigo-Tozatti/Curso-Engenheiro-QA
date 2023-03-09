@@ -1,0 +1,137 @@
+
+OBS: TESTES DE TELAS EM SISTMAS MOBILE QUE RODAM EM SITES *
+    Utilize o "Inspecionar" no navegador do computador ou notebook - no lado esquerdo tem o icone da tela do celular, existem vários formatos e dispositivos instalados.
+
+OBS: VERIFICAR COMO CONECTA O CELULAR NO NOTE E ATIVA O MODO DESENVOLVEDOR PARA TESTAR FAZER TESTES.
+
+** CONFIGURCAO AMBIENTE WINDOWS **
+
+    1 Baixe e instale a versão mais atual do Java JDK aqui: https://www.oracle.com/java/technologies/downloads
+
+    2 Verificar se o windos possui a "Plataforma do Hipervisio Windows" antes de instalar o SDK
+        2.1 Vá em Configurcoes / Aplicativos / Programas e Recursos / Ativar ou desativar recursos do Windows ---> na lista procurar se existe a pasta "Plataforma do Hipervision do Windows" obs: caso tenha não precisa ativar pois o sistema ativa sozinho. 
+        2.2 Baixe e instale o Android Studio, pois através dele teremos acesso ao SDK: https://developer.android.com/studio?
+    
+    3 Caso ainda não tenha instalado o NodeJS baixar e instalar pelo caminho: https://nodejs.org/en/
+    
+    4 Instalar o Visual Stuio Code: https://code.visualstudio.com/download
+        Plugins para o Visual Studio Code
+            Cucumber (Gherkin)
+            Es6 Mocha Snippets
+            Bracket Pair Colorizer
+            Cypress Snippets
+            Material Icon Thmeme
+            Visual Studio Intellicode
+    
+    5 Acesse a pasta onde o Java foi instalado e copie o caminho
+    
+    6 Abra a pesquisa do windows e digite "Variaveis" clique no resultado "Editar as variaveis de ambiente do sistema"
+        6.1 Clique no botao "Variaveis de ambiente"
+        6.2 Em "Variaveis do sistema" clique no botao "NOVO"
+        6.3 No campo "Nome da variável" digite em caixa alta "JAVA_HOME"
+        6.4 No campo "Valor da variavel" cole o caminho de onde o java foi instalado
+            Ex: C:\Program Files\Java
+        6.5 Clique em "OK" para salvar
+        6.6 Abra o Android Studio
+            5.1 Clique em "More Actions" abra o "SDK Menager" e copie o caminho de instalação em "Android SDK location"
+        6.7 Em "Variaveis do sistema" clique no botao "NOVO"
+        6.7 No campo "Nome da variável" digite em caixa alta "ANDROID_HOME"
+        6.4 No campo "Valor da variavel" cole o caminho do SDK ex: C:\Users\Rodrigo Tozatti\AppData\Local\Android\Sdk
+    
+    7 Em "Variaveis do sistema" procure o ambiente "PATH" e clique em "EDITAR"
+        7.1 Clique no botao "NOVO" e crie esses quatro novos valores
+            %JAVA_HOME%\bin
+            %ANDROID_HOME%\emulator
+            %ANDROID_HOME%\tools\bin
+            %ANDROID_HOME%\platform-tools
+        7.2 Clique em "OK" para salvar
+    
+    8 Verificando instalacaoes, no promp de comando digite:
+        8.1 java --version
+        8.2 node --version
+        8.3 adb --version
+        8.4 emulator --version
+    
+    9 Criando o Emulador
+        9.1 Abra o "Android Studio" clique em "More Actions" e clique em "Virtual Device Manager"
+        9.2 Clique no boao "Create Device" lado esquerdo no topo
+        9.3 Escolha o emulador que deseja nessa caso vou utilizar o Pixel 2 e clique no botão NEXT
+        9.4 Escolha e baixe a versao do Android (lista lado direito) nesse caso utilizei a versao 9.0
+        9.5 De um nome para o emulador
+        9.6 Clique em play para abrir (aguarde até ligar o aparelho completamente, para verificar se está conectado digite "adb devices" no promp de comando)
+    
+    10 Instalando o Appium-Doctor - No prompt de comando
+        10.1 Instale o Appium-doctor com o comando: npm install appium-doctor -g
+        10.2 Para verificar se suas configurações estão ok execute o comando: appium-doctor
+    
+    11 Instalar o Appium desktop
+        11.1 Site Appium: https://appium.io/
+        11.2 Caminho baixar o instalador: https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4 
+    
+    12 Instalar o Appium-Inspector: https://github.com/appium/appium-inspector/releases
+
+    13 Baixar o arquivo .apk webdriver io
+        13.1 acesse o link: https://github.com/webdriverio/native-demo-app
+        13.2 Vá em Releases e baixe o arquivo "Android-NativeDemoApp-0.4.0.apk"
+        13.3 Ou acesse direto o link: https://github.com/webdriverio/native-demo-app/releases e aixe o arquivo "Android-NativeDemoApp-0.4.0.apk"
+        13.4 Para instlar arraste o arquivo .apk para o simulador do celular
+
+RELATORIOS
+
+    1 No Webdriverio ir em "Get Started" e em Reporter
+
+    2 Report mais simples "Spec Reporter" (OBS: PELA INSTALACAO ANTERIOR JA E PARA ESTAR INSTALADO E FUNCIONANDO)
+        2.1 Instalar: npm install @wdio/spec-reporter --save-dev
+        2.2 No Wdio.config adicionar a linha de comando: "reporters: ['spec'],"
+
+    3 Allure Reporter - Relatorio mais completo
+        3.1 Instalar Allure Reporter: "npm install @wdio/allure-reporter --save-dev"
+        3.2 Instalar Autogenerete Reporter: "npm i allure-commandline"
+        3.3 Adicionar no inicio do Wdio.config a linha de comando antes de "exports.config": "const allure = require('allure-commandline')"
+        3.4 Alterar o "reporters: ['spec']" pelo comando abaixo:
+    reporters: ['spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: true,
+        }],
+        [video, {
+            saveAllVideos: false,       // If true, also saves videos for successful test cases
+            videoSlowdownMultiplier: 50, // Higher to get slower videos, lower for faster videos [Value 1-100]
+        }],
+    ],
+        3.5 Copiar o comando abaixo no Wdio.config abaixo do "reporters: ['spec']": (OBS O COMANDO ABAIXO JÁ ESTÁ COM SCREENSHOTS CONFIGURADO)
+    onComplete: function() {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', 'allure-results', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function(exitCode) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+    },
+    afterStep: async function (step, scenario, { error, duration, passed }, context) {
+        driverr.takeScreenshot()
+    },
+
+    4 Instalar o Allure Commandline em: https://www.npmjs.com/package/allure-commandline
+        4.1 Instalar: npm install -g allure-commandline --save-dev
+        4.2 Para utilizar (obs: depois de gerar as pastas allure-report e allure-results): allure open allure-report/
+
+    5 Instalar o Video Reporter
+        5.1 Instalar: npm install wdio-video-reporter
+        5.2 Obs: já adicinei o comando no report no item 3.4
+
+    6 Em package.json criar a script para facilitar a execcao do allure: "report": "npx allure open allure-report/"
+        6.1 Para abrir: npm run report
