@@ -1,0 +1,85 @@
+INICIANDO UM NOVO PROJETO
+
+    1 Abra o Visual Studio
+
+    2 Crie uma pasata de repositório (recomendacao: crie no GitHub e clone no Visual Studio)
+    
+    3 Abra um terminal com o Gith bash (pois vamos utilizar comandos especificos para ele)
+    
+    4 Entre no diretorio do projeto
+   
+    5 -----------------------
+   
+    6 -----------------------
+   
+    7 Utilizando o servidor Appium
+        7.1 Pode utilizar o Appium desktop ou... pelo promp de comando (prefiro o desktop)
+        7.1 Instalando o Appim no prompt de comando --> abra o prompt de comando e instale o appium: "npm install appium -g"
+        7.2 Digite "appium" para iniciar o servidor
+    
+    8 Abra o Appium Inspector
+        8.1 Em "Remote Path" digitar o caminho: "/wd/hub"
+        8.2 Desativar a opcao "SSL" na frente do "Remote Path"
+        8.3 Adicionar as Capabilities na aba "Desired Capabilities"
+            platformName ---> Android
+            platformVersion ---> 9.0 (obs: aqui é a versao escolhida quando se criou o simulador)
+            deviceName ---> Aula_EBAC_Pixel2_Android9 (nome do simulador que criou no Device Manager)
+            automationName ---> UIAutomator2
+        8.4 Salve para utilizar posteriormente
+
+    9 Na raiz do projeto crie uma pasta chamada "app" cole o arquivo .apk que ira utilizar
+        9.1 No Appium Inspector crie mais uma variavel chamada "app" e cole o caminho completo do item acima
+        9.2 Instale o arquivo .apk no simulador do celular (entre na pasta e arraste o arquivo para o simulador.)
+    
+    10 Utilize o comando "adb logcat | grep *nome do aplicativo*" para procurar a tela (display) que o inspector terá que aguardar para executr os testes
+        10.1 Nesse caso apareceu essa linha de comando: 09-29 19:28:28.774  1897  1920 I ActivityManager: Displayed com.wdiodemoapp/.MainActivity: +1s206ms (total +5s498ms)
+        10.2 Crie uma variavel com o nome: appWaitActivity ---> no valor copie e cole a pagina, nesse caso:
+        ".MainActivity"
+
+    11 Iniciando o projeto
+        11.1 instale o wdio com o comando "npm init wdio ." ---> na instalacao responder as perguntas conforme abaixo
+        11.2 Need to install the following packages:
+            create-wdio@8.0.0
+            Ok to proceed? (y) ---> y
+        11.3 ? Where is your automation backend located? On my local machine
+            ? Which framework do you want to use? (Use arrow keys)
+            > mocha
+            jasmine
+            cucumber
+        11.4 ? Do you want to use a compiler? (Use arrow keys)
+            Babel (https://babeljs.io/)
+            TypeScript (https://www.typescriptlang.org/)   
+            > No!
+        11.5 ? Where are your test specs located? (./test/specs/**/*.js) ---> enter
+        11.6 ? Do you want WebdriverIO to autogenerate some test files? (Y/n) ---> n
+        11.7 ? Which reporter do you want to use? (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
+            >(*) spec
+             ( ) dot
+             ( ) junit
+             ( ) allure
+             ( ) sumologic
+             ( ) concise
+             ( ) reportportal
+            (Move up and down to reveal more choices)
+        11.8 ? Do you want to add a plugin to your test setup? (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
+            >( ) wait-for
+             ( ) angular-component-harnesses ---> enter
+        11.9 ? Do you want to add a service to your test setup? (Press <space> to select, <a> to toggle all, <i> to invert selection, and 
+            <enter> to proceed)
+            >(*) chromedriver
+             ( ) geckodriver
+             ( ) edgedriver
+             ( ) sauce
+             ( ) testingbot
+             ( ) selenium-standalone
+             ( ) vscode
+            (Move up and down to reveal more choices) ---> desabilite chromedriver e clique enter
+        11.10 ? What is the base url? (http://localhost) ---> enter
+        11.11 ? Do you want me to run `npm install` (Y/n) ---> y
+
+    12 Em "wdio.config" fazer as alteracoes:
+        12.1 Alterar "Capabilities" para a que foi criada no "Appium Inspactor"
+        12.2 Abaixo de "baserUrl" adicionar: "port: 4723" ---> obs: essa é a porta do Appium (pesquisar para verificar se é essa mesma.)
+        12.3 Abaixo de "port: 4723" adicionar "path: '/wd/hub',
+
+    14 Caso nao tenha instalado, instalar o plugin "ES6 Mocha Snippets"

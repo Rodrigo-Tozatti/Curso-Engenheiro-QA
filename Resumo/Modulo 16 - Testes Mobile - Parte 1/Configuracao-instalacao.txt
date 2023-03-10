@@ -78,6 +78,13 @@ OBS: VERIFICAR COMO CONECTA O CELULAR NO NOTE E ATIVA O MODO DESENVOLVEDOR PARA 
         13.3 Ou acesse direto o link: https://github.com/webdriverio/native-demo-app/releases e baixe o arquivo "Android-NativeDemoApp-0.4.0.apk"
         13.4 Para instlar arraste o arquivo .apk para o simulador do celular
 
+** CRIAR UM PROJETO **
+
+    1 Crie a repositório no GitHub e faça um git clone pelo terminal do visual Studio Code no repositório que desejar dentro do notebook.
+    2 Com o APPIUM SERVER / ANDROID STUDIO (já com o .apk instalado) / APPIUM INSPECOTR abettos ---> digite as seguintes linhas de comandos no terminal
+        2.1 adb logcat
+        2.2 adb logcat | grep wdio
+
 RELATORIOS
 
     1 No Webdriverio ir em "Get Started" e em Reporter
