@@ -64,10 +64,10 @@ OBS: VERIFICAR COMO CONECTA O CELULAR NO NOTE E ATIVA O MODO DESENVOLVEDOR PARA 
         10.1 Instale o Appium-doctor com o comando: npm install appium-doctor -g
         10.2 Para verificar se suas configurações estão ok execute o comando: appium-doctor
     
-    11 Instalar o Appium desktop
+    11 Instalar o Appium desktop e 
         11.1 Site Appium: https://appium.io/
         11.2 Caminho baixar o instalador: https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
-        11.3 Descompacte e copie a pasta em Arquivos de Programas (adicione o "Appium Server GUI" na barra de tarefas) 
+        11.3 Baixe o arquivo executável .exe (para instalar na máquina) 
     
     12 Instalar o Appium-Inspector: https://github.com/appium/appium-inspector/releases
         12.1 Descompacte e copie a pasta em Arquivos de Programas (adicione o "Appium Inspector" na barra de tarefas) 
@@ -77,6 +77,8 @@ OBS: VERIFICAR COMO CONECTA O CELULAR NO NOTE E ATIVA O MODO DESENVOLVEDOR PARA 
         13.2 Vá em Releases e baixe o arquivo "Android-NativeDemoApp-0.4.0.apk"
         13.3 Ou acesse direto o link: https://github.com/webdriverio/native-demo-app/releases e baixe o arquivo "Android-NativeDemoApp-0.4.0.apk"
         13.4 Para instlar arraste o arquivo .apk para o simulador do celular
+        13.5 Para instalar pelo terminal execute a linha de comando: adb install D:\Repositorio\Portfolio-mobile\app\Android-NativeDemoApp-0.4.0.apk
+            OBS: adb install "caminho do arquivo apk"
 
 ** CRIAR UM PROJETO **
 
