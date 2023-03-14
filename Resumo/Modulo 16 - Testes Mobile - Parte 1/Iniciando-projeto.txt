@@ -8,18 +8,22 @@ INICIANDO UM NOVO PROJETO
     
     4 Entre no diretorio do projeto
    
-    5 -----------------------
+    5 Entre com o comando: npm init ---> preencha as informações solicitas
    
     6 -----------------------
    
-    7 Utilizando o servidor Appium
-        7.1 Pode utilizar o Appium desktop ou... pelo promp de comando (prefiro o desktop)
-        7.1.1 baixe o appium no link: https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
+    7 *** UTILIZANDO O SERVIDOR APPIUM ***
+
+        7.1 Appium descktop
+            7.1.1 baixe o appium no link: https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
             OBS: BAIXE O ARQUIVO EXE: Appium-Server-GUI-windows-1.22.3-4.exe
-        7.2 Instalando o Appim no prompt de comando --> abra o prompt de comando e instale o appium: "npm install appium -g"
-            7.2 Digite "appium" para iniciar o servidor
+        
+        7.2 Appium pelo prompt de comando
+            Abra o prompt de comando e instale o appium: "npm install appium -g"
+            7.2 Digite "appium" para iniciar o servidor (obs: o appium descktop não pode estar ativado)
     
-    8 Abra o Appium Inspector
+    8 *** CONFIGURANDO O APPIUM INSPECTOR ***
+
         8.1 Em "Remote Path" digitar o caminho: /wd/hub
         8.2 Desativar a opcao "SSL" na frente do "Remote Path"
         8.3 Adicionar as Capabilities na aba "Desired Capabilities"
@@ -30,22 +34,29 @@ INICIANDO UM NOVO PROJETO
             automationName ---> UIAutomator2
         8.4 Salve para utilizar posteriormente
 
-    9 Na raiz do projeto crie uma pasta chamada "app" cole o arquivo .apk que ira utilizar
+    9 *** SALVANDO E INSTALANDO O APP ARQUIVO .apk ***
+
+        9.1 Na raiz do projeto crie uma pasta chamada "app" cole o arquivo .apk que ira utilizar
         9.1 No Appium Inspector crie mais uma variavel chamada "app" e cole o caminho completo do item acima
-        9.2 INSTALE O APP (.apk) no simulador
-            9.2.1 Arrastando: entre na pasta e arraste o arquivo para o simulador.
+        9.2 Instale O APP (.apk) no simulador
+            9.2.1 Arrastando: entre na pasta e arraste o arquivo para o simulador
             9.2.1 Por linha de comando: instalar pelo terminal, execute a linha de comando: adb install caminho completo do arquivo apk
                 EX: adb install D:\Repositorio\Portfolio-mobile\app\wcandroid-12.5-Signed.apk
     
-    10 Utilize o comando "adb logcat | grep *nome do aplicativo*" para procurar a tela (display) que o inspector terá que aguardar para executr os testes
-        10.1 Nesse caso apareceu essa linha de comando: 09-29 19:28:28.774  1897  1920 I ActivityManager: Displayed com.wdiodemoapp/.MainActivity: +1s206ms (total +5s498ms)
-        OBS: Nesse outro exemplo ---> 03-12 20:10:35.440   498   534 I ActivityTaskManager: Displayed com.woocommerce.android/.ui.login.LoginActivity: +5s621ms  
-            foi necessário pegar todo esse texto ".ui.login.LoginActivity" *** provavelmente é todo o texto após a barra incluindo o ponto.
-        10.2 Crie uma variavel com o nome: appWaitActivity ---> no valor copie e cole a pagina, nesse caso:
-        ".MainActivity"
+    10 *** BUSCANDO O DISPLAY COM adb logcat | grep ***
 
-    11 Iniciando o projeto
-        11.1 instale o wdio com o comando "npm init wdio ." ---> na instalacao responder as perguntas conforme abaixo
+        10.1 Utilize o comando "adb logcat | grep *nome do aplicativo*" 
+            --> procurar por tela (Displayed) que o inspector terá que aguardar para executr os testes
+        10.2 Nesse caso apareceu essa linha de comando ---> 09-29 19:28:28.774  1897  1920 I ActivityManager: Displayed com.wdiodemoapp/.MainActivity: +1s206ms (total +5s498ms)
+        OBS: Nesse outro exemplo ---> 03-12 20:10:35.440   498   534 I ActivityTaskManager: Displayed com.woocommerce.android/.ui.login.LoginActivity: +5s621ms  
+            pegue todo o texto que vier após barra "/" ex ---> ".ui.login.LoginActivity" *** provavelmente é todo o texto após a barra incluindo o ponto.
+        10.3 Crie uma variavel com o nome: appWaitActivity ---> no valor copie e cole a pagina, nesse caso:
+            ".MainActivity"
+
+    11 *** INICIANDO O PROJETO ***
+
+        11.1 instale o wdio com o comando "npm init wdio ."
+            ---> na instalacao responder as perguntas conforme abaixo
         
         11.2 Need to install the following packages:
             create-wdio@8.0.0
@@ -71,7 +82,7 @@ INICIANDO UM NOVO PROJETO
 
         11.8 Do you want to use page objects (https://martinflower.com/blinki/PageObject.html)? Yes
 
-        11.9 Where are you page objects located? (./test/pageobjects/**/*.js) .test/pages/**/*.js
+        11.9 Where are you page objects located? (./test/pageobjects/**/*.js) ./test/pages/**/*.js
 
         11.10 ? Which reporter do you want to use? (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
             >(*) spec
@@ -89,7 +100,9 @@ INICIANDO UM NOVO PROJETO
         
         11.12 ? Do you want to add a service to your test setup? (Press <space> to select, <a> to toggle all, <i> to invert selection, and 
             <enter> to proceed)
+
             ***** PROCURE POR APPIUM MAIS ABAIXO DA LISTA****
+             
             >( ) chromedriver
              ( ) geckodriver
              ( ) edgedriver
@@ -105,7 +118,12 @@ INICIANDO UM NOVO PROJETO
 
         *** OBS: depois de instalado deletar os exemplos que estiverem na pasta "Pages"
 
-    12 Em "wdio.config" fazer as alteracoes:
+    12 *** CONFIGURAR "wdio.config" ***
+
+        *** OBSERVAR NO wdio.config SE JÁ EXISTEM AS ALTERAÇÕES ABAIXO ***
+           Provavelmente estará faltando ---> path: '/wd/hub',
+           E colar as Capabilities conforme o Appium Inspactor
+
         12.1 Alterar "Capabilities" para a que foi criada no "Appium Inspactor"
         12.2 Abaixo de "baserUrl" adicionar: "port: 4723" ---> obs: essa é a porta do Appium (pesquisar para verificar se é essa mesma.)
         12.3 Abaixo de "port: 4723" adicionar "path: '/wd/hub',
@@ -118,7 +136,13 @@ INICIANDO UM NOVO PROJETO
         './test/specs/**/*.spec.js'
         ],
 
-    13 Para aumentar o tempo de resposta do teste
+    13 *** AUMENTAR O TEMPO DE RESPOSTA DOS TESTES ***
+
         13.1 logo abaixo de baseUrl procure por: waitforTimeout: 10000, (altere o valo conforme necessidade)
 
     14 Caso nao tenha instalado, instalar o plugin "ES6 Mocha Snippets"
+
+    15 Executar o projeto no Visual Studio
+    
+        Obs: em package.json já vai ser criada automaticamente o script de atalho ---> "wdio": "wdio run ./wdio.conf.js"
+        * Execute com o comando ---> npm run wdio
